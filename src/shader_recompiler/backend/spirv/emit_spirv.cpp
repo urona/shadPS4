@@ -242,9 +242,12 @@ void SetupCapabilities(const Info& info, const Profile& profile, EmitContext& ct
     ctx.AddCapability(spv::Capability::Image1D);
     ctx.AddCapability(spv::Capability::Sampled1D);
     ctx.AddCapability(spv::Capability::ImageQuery);
+    ctx.AddCapability(spv::Capability::Int8);
+    ctx.AddCapability(spv::Capability::Int16);
+    ctx.AddCapability(spv::Capability::UniformAndStorageBuffer8BitAccess);
+    ctx.AddCapability(spv::Capability::UniformAndStorageBuffer16BitAccess);
     if (info.uses_fp16) {
         ctx.AddCapability(spv::Capability::Float16);
-        ctx.AddCapability(spv::Capability::Int16);
     }
     if (info.uses_fp64) {
         ctx.AddCapability(spv::Capability::Float64);

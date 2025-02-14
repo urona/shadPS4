@@ -25,7 +25,7 @@ static IR::Value LoadBufferFormat(IR::IREmitter& ir, const AmdGpu::Buffer& buffe
     const auto num_fmt = buffer.GetNumberFmt();
     const auto num_conv = buffer.GetNumberConversion();
     const auto num_components = AmdGpu::NumComponents(buffer.GetDataFmt());
-    LOG_INFO(Render_Recompiler, "data_fmt = {}, num_fmt = {}", data_fmt, num_fmt);
+
     IR::Value interpreted;
     switch (data_fmt) {
     case AmdGpu::DataFormat::FormatInvalid:

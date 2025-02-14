@@ -540,7 +540,6 @@ void Rasterizer::BindBuffers(const Shader::Info& stage, Shader::Backend::Binding
                 buffer_infos.emplace_back(vk_buffer->Handle(), offset, ubo_size);
             } else if (desc.buffer_type == Shader::BufferType::SharedMemory) {
                 // Bind a SSBO to act as shared memory in case of not being able to use a workgroup buffer
-                // (e.g. when the compute shared memory is bigger than the GPU's shared memory)
                 const auto& cs_program = liverpool->GetCsRegs();
                 const auto lds_size = cs_program.SharedMemSize() * cs_program.NumWorkgroups();
                 const auto [lds_buf, data, offset] = buffer_cache.ObtainScratchBuffer(lds_size, instance.StorageMinAlignment());

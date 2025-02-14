@@ -205,7 +205,6 @@ struct Info {
     bool stores_tess_level_inner{};
     bool translation_failed{};
     bool has_readconst{};
-    bool has_emulated_shared_memory{};
     bool has_fetch_shader{};
     u32 fetch_shader_sgpr_base{};
     u8 mrt_mask{};
