@@ -115,6 +115,10 @@ public:
         return buffer;
     }
 
+    bool IsDeleted() const noexcept {
+        return is_deleted;
+    }
+
     std::optional<vk::BufferMemoryBarrier2> GetBarrier(
         vk::Flags<vk::AccessFlagBits2> dst_acess_mask, vk::PipelineStageFlagBits2 dst_stage,
         u32 offset = 0) {

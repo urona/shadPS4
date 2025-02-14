@@ -5,7 +5,6 @@
 #include "common/div_ceil.h"
 #include "shader_recompiler/backend/spirv/spirv_emit_context.h"
 #include "shader_recompiler/frontend/fetch_shader.h"
-#include "shader_recompiler/ir/passes/srt.h"
 #include "shader_recompiler/runtime_info.h"
 #include "video_core/amdgpu/types.h"
 
@@ -107,6 +106,8 @@ Id EmitContext::Def(const IR::Value& value) {
 void EmitContext::DefineArithmeticTypes() {
     void_id = Name(TypeVoid(), "void_id");
     U1[1] = Name(TypeBool(), "bool_id");
+    U8 = Name(TypeUInt(8), "u8_id");
+    U16 = Name(TypeUInt(16), "u16_id");
     if (info.uses_fp16) {
         F16[1] = Name(TypeFloat(16), "f16_id");
         U16 = Name(TypeUInt(16), "u16_id");
@@ -193,6 +194,9 @@ EmitContext::SpirvAttribute EmitContext::GetAttributeInfo(AmdGpu::NumberFormat f
 
 void EmitContext::DefineBufferOffsets() {
     for (BufferDefinition& buffer : buffers) {
+        if (buffer.buffer_type != BufferType::Guest) {
+            continue;
+        }
         const u32 binding = buffer.binding;
         const u32 half = PushData::BufOffsetIndex + (binding >> 4);
         const u32 comp = (binding & 0xf) >> 2;
@@ -588,78 +592,72 @@ void EmitContext::DefinePushDataBlock() {
     interfaces.push_back(push_data_block);
 }
 
-void EmitContext::DefineBuffers() {
-    boost::container::small_vector<Id, 8> type_ids;
-    const auto define_struct = [&](Id record_array_type, bool is_instance_data,
-                                   std::optional<std::string_view> explicit_name = {}) {
-        const Id struct_type{TypeStruct(record_array_type)};
-        if (std::ranges::find(type_ids, record_array_type.value, &Id::value) != type_ids.end()) {
-            return struct_type;
-        }
-        Decorate(record_array_type, spv::Decoration::ArrayStride, 4);
-        auto name = is_instance_data ? fmt::format("{}_instance_data_f32", stage)
-                                     : fmt::format("{}_cbuf_block_f32", stage);
-        name = explicit_name.value_or(name);
-        Name(struct_type, name);
+EmitContext::BufferSpv EmitContext::DefineBuffer(bool is_storage, bool is_written, u32 elem_shift,
+                                                 BufferType buffer_type, Id data_type) {
+    // Define array type.
+    const Id max_num_items = ConstU32(u32(profile.max_ubo_size) >> elem_shift);
+    const Id record_array_type{is_storage ? TypeRuntimeArray(data_type)
+                                          : TypeArray(data_type, max_num_items)};
+
+    // Define block struct type. Don't perform decorations twice on the same Id.
+    const Id struct_type{TypeStruct(record_array_type)};
+    if (std::ranges::find(buf_type_ids, record_array_type.value, &Id::value) == buf_type_ids.end()) {
+        Decorate(record_array_type, spv::Decoration::ArrayStride, 1 << elem_shift);
         Decorate(struct_type, spv::Decoration::Block);
         MemberName(struct_type, 0, "data");
         MemberDecorate(struct_type, 0, spv::Decoration::Offset, 0U);
-        type_ids.push_back(record_array_type);
-        return struct_type;
-    };
-
-    if (info.has_readconst) {
-        const Id data_type = U32[1];
-        const auto storage_class = spv::StorageClass::Uniform;
-        const Id pointer_type = TypePointer(storage_class, data_type);
-        const Id record_array_type{
-            TypeArray(U32[1], ConstU32(static_cast<u32>(info.flattened_ud_buf.size())))};
-
-        const Id struct_type{define_struct(record_array_type, false, "srt_flatbuf_ty")};
-
-        const Id struct_pointer_type{TypePointer(storage_class, struct_type)};
-        const Id id{AddGlobalVariable(struct_pointer_type, storage_class)};
-        Decorate(id, spv::Decoration::Binding, binding.unified++);
-        Decorate(id, spv::Decoration::DescriptorSet, 0U);
-        Name(id, "srt_flatbuf_ubo");
-
-        srt_flatbuf = {
-            .id = id,
-            .binding = binding.buffer++,
-            .pointer_type = pointer_type,
-        };
-        interfaces.push_back(id);
+        buf_type_ids.push_back(record_array_type);
     }
 
-    for (const auto& desc : info.buffers) {
-        const auto sharp = desc.GetSharp(info);
-        const bool is_storage = desc.IsStorage(sharp, profile);
-        const u32 array_size = profile.max_ubo_size >> 2;
-        const auto* data_types = True(desc.used_types & IR::Type::F32) ? &F32 : &U32;
-        const Id data_type = (*data_types)[1];
-        const Id record_array_type{is_storage ? TypeRuntimeArray(data_type)
-                                              : TypeArray(data_type, ConstU32(array_size))};
-        const Id struct_type{define_struct(record_array_type, desc.is_instance_data)};
+    // Define buffer binding interface.
+    const auto storage_class =
+        is_storage ? spv::StorageClass::StorageBuffer : spv::StorageClass::Uniform;
+    const Id struct_pointer_type{TypePointer(storage_class, struct_type)};
+    const Id pointer_type = TypePointer(storage_class, data_type);
+    const Id id{AddGlobalVariable(struct_pointer_type, storage_class)};
+    Decorate(id, spv::Decoration::Binding, binding.unified);
+    Decorate(id, spv::Decoration::DescriptorSet, 0U);
+    if (is_storage && !is_written) {
+        Decorate(id, spv::Decoration::NonWritable);
+    }
+    switch (buffer_type) {
+    case Shader::BufferType::GdsBuffer:
+        Name(id, "gds_buffer");
+        break;
+    case Shader::BufferType::ReadConstUbo:
+        Name(id, "srt_flatbuf_ubo");
+        break;
+    case Shader::BufferType::SharedMemory:
+        Name(id, "ssbo_shmem");
+        break;
+    default:
+        Name(id, fmt::format("{}_{}", is_storage ? "ssbo" : "ubo", binding.buffer));
+    }
+    interfaces.push_back(id);
+    return {id, pointer_type};
+};
 
-        const auto storage_class =
-            is_storage ? spv::StorageClass::StorageBuffer : spv::StorageClass::Uniform;
-        const Id struct_pointer_type{TypePointer(storage_class, struct_type)};
-        const Id pointer_type = TypePointer(storage_class, data_type);
-        const Id id{AddGlobalVariable(struct_pointer_type, storage_class)};
-        Decorate(id, spv::Decoration::Binding, binding.unified++);
-        Decorate(id, spv::Decoration::DescriptorSet, 0U);
-        if (is_storage && !desc.is_written) {
-            Decorate(id, spv::Decoration::NonWritable);
+
+void EmitContext::DefineBuffers() {
+    for (const BufferResource& desc : info.buffers) {
+        const auto buf_sharp = desc.GetSharp(info);
+        const bool is_storage = desc.IsStorage(buf_sharp, profile);
+
+        // Define aliases depending on the shader usage.
+        auto& spv_buffer = buffers.emplace_back(binding.buffer++, desc.buffer_type);
+        if (True(desc.used_types & IR::Type::U32)) {
+            spv_buffer[BufferAlias::U32] = DefineBuffer(is_storage, desc.is_written, 2, desc.buffer_type, U32[1]);
         }
-        Name(id, fmt::format("{}_{}", is_storage ? "ssbo" : "cbuf", desc.sharp_idx));
-
-        buffers.push_back({
-            .id = id,
-            .binding = binding.buffer++,
-            .data_types = data_types,
-            .pointer_type = pointer_type,
-        });
-        interfaces.push_back(id);
+        if (True(desc.used_types & IR::Type::F32)) {
+            spv_buffer[BufferAlias::F32] = DefineBuffer(is_storage, desc.is_written, 2, desc.buffer_type, F32[1]);
+        }
+        if (True(desc.used_types & IR::Type::U16)) {
+            spv_buffer[BufferAlias::U16] = DefineBuffer(is_storage, desc.is_written, 1, desc.buffer_type, U16);
+        }
+        if (True(desc.used_types & IR::Type::U8)) {
+            spv_buffer[BufferAlias::U8] = DefineBuffer(is_storage, desc.is_written, 0, desc.buffer_type, U8);
+        }
+        ++binding.unified;
     }
 }
 
@@ -809,51 +807,19 @@ void EmitContext::DefineImagesAndSamplers() {
 }
 
 void EmitContext::DefineSharedMemory() {
-    static constexpr size_t DefaultSharedMemSize = 2_KB;
-    if (!info.uses_shared) {
+    if (!info.uses_shared || info.has_emulated_shared_memory) {
         return;
     }
     ASSERT(info.stage == Stage::Compute);
-
     const u32 max_shared_memory_size = profile.max_shared_memory_size;
-    u32 shared_memory_size = runtime_info.cs_info.shared_memory_size;
-    if (shared_memory_size == 0) {
-        shared_memory_size = DefaultSharedMemSize;
-    }
-
+    const u32 shared_memory_size = runtime_info.cs_info.shared_memory_size;
     const u32 num_elements{Common::DivCeil(shared_memory_size, 4U)};
     const Id type{TypeArray(U32[1], ConstU32(num_elements))};
-
-    if (shared_memory_size <= max_shared_memory_size) {
-        shared_memory_u32_type = TypePointer(spv::StorageClass::Workgroup, type);
-        shared_u32 = TypePointer(spv::StorageClass::Workgroup, U32[1]);
-        shared_memory_u32 = AddGlobalVariable(shared_memory_u32_type, spv::StorageClass::Workgroup);
-        Name(shared_memory_u32, "shared_mem");
-        interfaces.push_back(shared_memory_u32);
-    } else {
-        shared_memory_u32_type = TypePointer(spv::StorageClass::StorageBuffer, type);
-        shared_u32 = TypePointer(spv::StorageClass::StorageBuffer, U32[1]);
-
-        Decorate(type, spv::Decoration::ArrayStride, 4);
-
-        const Id struct_type{TypeStruct(type)};
-        Name(struct_type, "shared_memory_buf");
-        Decorate(struct_type, spv::Decoration::Block);
-        MemberName(struct_type, 0, "data");
-        MemberDecorate(struct_type, 0, spv::Decoration::Offset, 0U);
-
-        const Id struct_pointer_type{TypePointer(spv::StorageClass::StorageBuffer, struct_type)};
-        const Id ssbo_id{AddGlobalVariable(struct_pointer_type, spv::StorageClass::StorageBuffer)};
-        Decorate(ssbo_id, spv::Decoration::Binding, binding.unified++);
-        Decorate(ssbo_id, spv::Decoration::DescriptorSet, 0U);
-        Name(ssbo_id, "shared_mem_ssbo");
-
-        shared_memory_u32 = ssbo_id;
-
-        info.has_emulated_shared_memory = true;
-        info.shared_memory_size = shared_memory_size;
-        interfaces.push_back(ssbo_id);
-    }
+    shared_memory_u32_type = TypePointer(spv::StorageClass::Workgroup, type);
+    shared_u32 = TypePointer(spv::StorageClass::Workgroup, U32[1]);
+    shared_memory_u32 = AddGlobalVariable(shared_memory_u32_type, spv::StorageClass::Workgroup);
+    Name(shared_memory_u32, "shared_mem");
+    interfaces.push_back(shared_memory_u32);
 }
 
 Id EmitContext::DefineFloat32ToUfloatM5(u32 mantissa_bits, const std::string_view name) {

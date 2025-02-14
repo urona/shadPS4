@@ -6,11 +6,14 @@
 
 namespace Shader::Backend::SPIRV {
 namespace {
+
 std::pair<Id, Id> AtomicArgs(EmitContext& ctx) {
     const Id scope{ctx.ConstU32(static_cast<u32>(spv::Scope::Device))};
     const Id semantics{ctx.u32_zero_value};
     return {scope, semantics};
 }
+
+using BufferAlias = EmitContext::BufferAlias;
 
 Id SharedAtomicU32(EmitContext& ctx, Id offset, Id value,
                    Id (Sirit::Module::*atomic_func)(Id, Id, Id, Id, Id)) {
@@ -23,10 +26,13 @@ Id SharedAtomicU32(EmitContext& ctx, Id offset, Id value,
 
 Id BufferAtomicU32(EmitContext& ctx, IR::Inst* inst, u32 handle, Id address, Id value,
                    Id (Sirit::Module::*atomic_func)(Id, Id, Id, Id, Id)) {
-    auto& buffer = ctx.buffers[handle];
-    address = ctx.OpIAdd(ctx.U32[1], address, buffer.offset);
+    const auto& spv_buffer = ctx.buffers[handle];
+    if (Sirit::ValidId(spv_buffer.offset)) {
+        address = ctx.OpIAdd(ctx.U32[1], address, spv_buffer.offset);
+    }
     const Id index = ctx.OpShiftRightLogical(ctx.U32[1], address, ctx.ConstU32(2u));
-    const Id ptr = ctx.OpAccessChain(buffer.pointer_type, buffer.id, ctx.u32_zero_value, index);
+    const auto [id, pointer_type] = spv_buffer[BufferAlias::U32];
+    const Id ptr = ctx.OpAccessChain(pointer_type, id, ctx.u32_zero_value, index);
     const auto [scope, semantics]{AtomicArgs(ctx)};
     return (ctx.*atomic_func)(ctx.U32[1], ptr, scope, semantics, value);
 }
@@ -165,17 +171,17 @@ Id EmitImageAtomicExchange32(EmitContext& ctx, IR::Inst* inst, u32 handle, Id co
 }
 
 Id EmitDataAppend(EmitContext& ctx, u32 gds_addr, u32 binding) {
-    auto& buffer = ctx.buffers[binding];
-    const Id ptr = ctx.OpAccessChain(buffer.pointer_type, buffer.id, ctx.u32_zero_value,
-                                     ctx.ConstU32(gds_addr));
+    const auto& spv_buffer = ctx.buffers[binding];
+    const auto [id, pointer_type] = spv_buffer[BufferAlias::U32];
+    const Id ptr = ctx.OpAccessChain(pointer_type, id, ctx.u32_zero_value, ctx.ConstU32(gds_addr));
     const auto [scope, semantics]{AtomicArgs(ctx)};
     return ctx.OpAtomicIIncrement(ctx.U32[1], ptr, scope, semantics);
 }
 
 Id EmitDataConsume(EmitContext& ctx, u32 gds_addr, u32 binding) {
-    auto& buffer = ctx.buffers[binding];
-    const Id ptr = ctx.OpAccessChain(buffer.pointer_type, buffer.id, ctx.u32_zero_value,
-                                     ctx.ConstU32(gds_addr));
+    const auto& spv_buffer = ctx.buffers[binding];
+    const auto [id, pointer_type] = spv_buffer[BufferAlias::U32];
+    const Id ptr = ctx.OpAccessChain(pointer_type, id, ctx.u32_zero_value, ctx.ConstU32(gds_addr));
     const auto [scope, semantics]{AtomicArgs(ctx)};
     return ctx.OpAtomicIDecrement(ctx.U32[1], ptr, scope, semantics);
 }

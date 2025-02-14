@@ -5,11 +5,8 @@
 #include "common/alignment.h"
 #include "common/scope_exit.h"
 #include "common/types.h"
-#include "shader_recompiler/frontend/fetch_shader.h"
-#include "shader_recompiler/info.h"
 #include "video_core/amdgpu/liverpool.h"
 #include "video_core/buffer_cache/buffer_cache.h"
-#include "video_core/renderer_vulkan/liverpool_to_vk.h"
 #include "video_core/renderer_vulkan/vk_graphics_pipeline.h"
 #include "video_core/renderer_vulkan/vk_instance.h"
 #include "video_core/renderer_vulkan/vk_scheduler.h"
@@ -29,10 +26,8 @@ BufferCache::BufferCache(const Vulkan::Instance& instance_, Vulkan::Scheduler& s
       staging_buffer{instance, scheduler, MemoryUsage::Upload, StagingBufferSize},
       stream_buffer{instance, scheduler, MemoryUsage::Stream, UboStreamBufferSize},
       gds_buffer{instance, scheduler, MemoryUsage::Stream, 0, AllFlags, DataShareBufferSize},
-      lds_buffer{instance, scheduler, MemoryUsage::DeviceLocal, 0, AllFlags, DataShareBufferSize},
       memory_tracker{&tracker} {
     Vulkan::SetObjectName(instance.GetDevice(), gds_buffer.Handle(), "GDS Buffer");
-    Vulkan::SetObjectName(instance.GetDevice(), lds_buffer.Handle(), "LDS Buffer");
 
     // Ensure the first slot is used for the null buffer
     const auto null_id =
@@ -251,12 +246,9 @@ void BufferCache::InlineData(VAddr address, const void* value, u32 num_bytes, bo
     });
 }
 
-std::pair<Buffer*, u32> BufferCache::ObtainHostUBO(std::span<const u32> data) {
-    static constexpr u64 StreamThreshold = CACHING_PAGESIZE;
-    ASSERT(data.size_bytes() <= StreamThreshold);
-    const u64 offset = stream_buffer.Copy(reinterpret_cast<VAddr>(data.data()), data.size_bytes(),
-                                          instance.UniformMinAlignment());
-    return {&stream_buffer, offset};
+std::tuple<Buffer*, u8*, u32> BufferCache::ObtainScratchBuffer(u32 size, u32 alignment) {
+    const auto [data, offset] = stream_buffer.Map(size, alignment);
+    return {&stream_buffer, data, offset};
 }
 
 std::pair<Buffer*, u32> BufferCache::ObtainBuffer(VAddr device_addr, u32 size, bool is_written,
@@ -270,7 +262,7 @@ std::pair<Buffer*, u32> BufferCache::ObtainBuffer(VAddr device_addr, u32 size, b
         return {&stream_buffer, offset};
     }
 
-    if (!buffer_id || slot_buffers[buffer_id].is_deleted) {
+    if (!buffer_id || slot_buffers[buffer_id].IsDeleted()) {
         buffer_id = FindBuffer(device_addr, size);
     }
     Buffer& buffer = slot_buffers[buffer_id];

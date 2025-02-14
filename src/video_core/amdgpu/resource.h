@@ -31,6 +31,18 @@ struct Buffer {
     u32 _padding1 : 6;
     u32 type : 2; // overlaps with T# type, so should be 0 for buffer
 
+    static constexpr Buffer Null(u32 num_dwords = 0) {
+        Buffer buffer{};
+        buffer.base_address = 1;
+        buffer.stride = sizeof(u32);
+        buffer.dst_sel_x = u64(CompSwizzle::Red);
+        buffer.dst_sel_y = u64(CompSwizzle::Green);
+        buffer.dst_sel_z = u64(CompSwizzle::Blue);
+        buffer.dst_sel_w = u64(CompSwizzle::Alpha);
+        buffer.num_records = num_dwords;
+        return buffer;
+    }
+
     bool Valid() const {
         return type == 0u;
     }

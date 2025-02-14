@@ -5,7 +5,6 @@
 
 #include <array>
 #include <bit>
-#include <cstring>
 #include <type_traits>
 #include <utility>
 #include <boost/container/list.hpp>
@@ -105,7 +104,7 @@ public:
 
     explicit TypedValue(const Value& value) : Value(value) {
         if ((value.Type() & type_) == IR::Type::Void) {
-            throw InvalidArgument("Incompatible types {} and {}", type_, value.Type());
+            UNREACHABLE_MSG("Incompatible types {} and {}", type_, value.Type());
         }
     }
 
@@ -184,6 +183,7 @@ public:
 
     /// Get a pointer to the block of a phi argument.
     [[nodiscard]] Block* PhiBlock(size_t index) const;
+
     /// Add phi operand to a phi instruction.
     void AddPhiOperand(Block* predecessor, const Value& value);
 
@@ -203,15 +203,13 @@ public:
     template <typename FlagsType>
         requires(sizeof(FlagsType) <= sizeof(u32) && std::is_trivially_copyable_v<FlagsType>)
     [[nodiscard]] FlagsType Flags() const noexcept {
-        FlagsType ret;
-        std::memcpy(reinterpret_cast<char*>(&ret), &flags, sizeof(ret));
-        return ret;
+        return std::bit_cast<FlagsType>(flags);
     }
 
     template <typename FlagsType>
         requires(sizeof(FlagsType) <= sizeof(u32) && std::is_trivially_copyable_v<FlagsType>)
     void SetFlags(FlagsType value) noexcept {
-        std::memcpy(&flags, &value, sizeof(value));
+        flags = std::bit_cast<u32>(value);
     }
 
     /// Intrusively store the host definition of this instruction.
