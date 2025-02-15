@@ -7,7 +7,7 @@
     <name>AboutDialog</name>
     <message>
       <source>About shadPS4</source>
-      <translation type="unfinished">About shadPS4</translation>
+      <translation type="unfinished">shadPS4 정보</translation>
     </message>
     <message>
       <source>shadPS4</source>
@@ -15,50 +15,50 @@
     </message>
     <message>
       <source>shadPS4 is an experimental open-source emulator for the PlayStation 4.</source>
-      <translation type="unfinished">shadPS4 is an experimental open-source emulator for the PlayStation 4.</translation>
+      <translation type="unfinished">shadPS4는 PlayStation 4용 실험적인 오픈 소스 에뮬레이터입니다.</translation>
     </message>
     <message>
       <source>This software should not be used to play games you have not legally obtained.</source>
-      <translation type="unfinished">This software should not be used to play games you have not legally obtained.</translation>
+      <translation type="unfinished">이 소프트웨어는 합법적으로 획득하지 않은 게임을 플레이하는 데 사용해서는 안 됩니다.</translation>
     </message>
   </context>
   <context>
     <name>CheatsPatches</name>
     <message>
       <source>Cheats / Patches for </source>
-      <translation type="unfinished">Cheats / Patches for </translation>
+      <translation type="unfinished">치트 / 패치 </translation>
     </message>
     <message>
       <source>Cheats/Patches are experimental.\nUse with caution.\n\nDownload cheats individually by selecting the repository and clicking the download button.\nIn the Patches tab, you can download all patches at once, choose which ones you want to use, and save your selection.\n\nSince we do not develop the Cheats/Patches,\nplease report issues to the cheat author.\n\nCreated a new cheat? Visit:\n</source>
-      <translation type="unfinished">Cheats/Patches are experimental.\nUse with caution.\n\nDownload cheats individually by selecting the repository and clicking the download button.\nIn the Patches tab, you can download all patches at once, choose which ones you want to use, and save your selection.\n\nSince we do not develop the Cheats/Patches,\nplease report issues to the cheat author.\n\nCreated a new cheat? Visit:\n</translation>
+      <translation>치트/패치는 실험 단계입니다.\n신중하게 사용하세요.\n\n저장소를 선택하고 다운로드 버튼을 클릭하여 치트를 개별적으로 다운로드하세요.\n패치 탭에서 모든 패치를 한 번에 다운로드하고 사용할 패치를 선택한 다음 선택한 내용을 저장할 수 있습니다.\n\n저희는 치트/패치를 개발하지 않으므로,\n치트 작성자에게 문제를 신고해 주세요.\n\n새로운 치트를 만들었나요? 방문하기:\n</translation>
     </message>
     <message>
       <source>No Image Available</source>
-      <translation type="unfinished">No Image Available</translation>
+      <translation type="unfinished">사용할 수 있는 이미지 없음</translation>
     </message>
     <message>
       <source>Serial: </source>
-      <translation type="unfinished">Serial: </translation>
+      <translation type="unfinished">시리얼: </translation>
     </message>
     <message>
       <source>Version: </source>
-      <translation type="unfinished">Version: </translation>
+      <translation type="unfinished">버전: </translation>
     </message>
     <message>
       <source>Size: </source>
-      <translation type="unfinished">Size: </translation>
+      <translation type="unfinished">크기: </translation>
     </message>
     <message>
       <source>Select Cheat File:</source>
-      <translation type="unfinished">Select Cheat File:</translation>
+      <translation type="unfinished">치트 파일 선택:</translation>
     </message>
     <message>
       <source>Repository:</source>
-      <translation type="unfinished">Repository:</translation>
+      <translation type="unfinished">저장소:</translation>
     </message>
     <message>
       <source>Download Cheats</source>
-      <translation type="unfinished">Download Cheats</translation>
+      <translation type="unfinished">치트 다운로드</translation>
     </message>
     <message>
       <source>Delete File</source>
@@ -983,135 +983,135 @@
     </message>
     <message>
       <source>File</source>
-      <translation type="unfinished">File</translation>
+      <translation type="unfinished">파일</translation>
     </message>
     <message>
       <source>View</source>
-      <translation type="unfinished">View</translation>
+      <translation type="unfinished">보기</translation>
     </message>
     <message>
       <source>Game List Icons</source>
-      <translation type="unfinished">Game List Icons</translation>
+      <translation type="unfinished">게임리스트 아이콘</translation>
     </message>
     <message>
       <source>Game List Mode</source>
-      <translation type="unfinished">Game List Mode</translation>
+      <translation type="unfinished">게임리스트 모드</translation>
     </message>
     <message>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation type="unfinished">설정</translation>
     </message>
     <message>
       <source>Utils</source>
-      <translation type="unfinished">Utils</translation>
+      <translation type="unfinished">유틸</translation>
     </message>
     <message>
       <source>Themes</source>
-      <translation type="unfinished">Themes</translation>
+      <translation type="unfinished">테마</translation>
     </message>
     <message>
       <source>Help</source>
-      <translation type="unfinished">Help</translation>
+      <translation type="unfinished">도움말</translation>
     </message>
     <message>
       <source>Dark</source>
-      <translation type="unfinished">Dark</translation>
+      <translation type="unfinished">어둡게</translation>
     </message>
     <message>
       <source>Light</source>
-      <translation type="unfinished">Light</translation>
+      <translation type="unfinished">밝게</translation>
     </message>
     <message>
       <source>Green</source>
-      <translation type="unfinished">Green</translation>
+      <translation type="unfinished">녹색</translation>
     </message>
     <message>
       <source>Blue</source>
-      <translation type="unfinished">Blue</translation>
+      <translation type="unfinished">파란색</translation>
     </message>
     <message>
       <source>Violet</source>
-      <translation type="unfinished">Violet</translation>
+      <translation type="unfinished">보라색</translation>
     </message>
     <message>
       <source>toolBar</source>
-      <translation type="unfinished">toolBar</translation>
+      <translation type="unfinished">도구 모음</translation>
     </message>
     <message>
       <source>Game List</source>
-      <translation type="unfinished">Game List</translation>
+      <translation type="unfinished">게임 리스트</translation>
     </message>
     <message>
       <source> * Unsupported Vulkan Version</source>
-      <translation type="unfinished"> * Unsupported Vulkan Version</translation>
+      <translation type="unfinished"> * 지원되지 않는 Vulkan 버전</translation>
     </message>
     <message>
       <source>Download Cheats For All Installed Games</source>
-      <translation type="unfinished">Download Cheats For All Installed Games</translation>
+      <translation type="unfinished">설치된 모든 게임 치트 다운로드</translation>
     </message>
     <message>
       <source>Download Patches For All Games</source>
-      <translation type="unfinished">Download Patches For All Games</translation>
+      <translation type="unfinished">모든 게임 패치 다운로드</translation>
     </message>
     <message>
       <source>Download Complete</source>
-      <translation type="unfinished">Download Complete</translation>
+      <translation type="unfinished">다운로드 완료</translation>
     </message>
     <message>
       <source>You have downloaded cheats for all the games you have installed.</source>
-      <translation type="unfinished">You have downloaded cheats for all the games you have installed.</translation>
+      <translation type="unfinished">설치한 모든 게임의 치트를 다운로드했습니다.</translation>
     </message>
     <message>
       <source>Patches Downloaded Successfully!</source>
-      <translation type="unfinished">Patches Downloaded Successfully!</translation>
+      <translation type="unfinished">패치 다운로드 성공!</translation>
     </message>
     <message>
       <source>All Patches available for all games have been downloaded.</source>
-      <translation type="unfinished">All Patches available for all games have been downloaded.</translation>
+      <translation type="unfinished">게임에서 사용 가능한 모든 패치가 다운로드되었습니다.</translation>
     </message>
     <message>
       <source>Games: </source>
-      <translation type="unfinished">Games: </translation>
+      <translation type="unfinished">게임: </translation>
     </message>
     <message>
       <source>ELF files (*.bin *.elf *.oelf)</source>
-      <translation type="unfinished">ELF files (*.bin *.elf *.oelf)</translation>
+      <translation type="unfinished">ELF 파일 (*.bin *.elf *.oelf)</translation>
     </message>
     <message>
       <source>Game Boot</source>
-      <translation type="unfinished">Game Boot</translation>
+      <translation type="unfinished">게임 부팅</translation>
     </message>
     <message>
       <source>Only one file can be selected!</source>
-      <translation type="unfinished">Only one file can be selected!</translation>
+      <translation type="unfinished">파일은 하나만 선택할 수 있습니다!</translation>
     </message>
     <message>
       <source>PKG Extraction</source>
-      <translation type="unfinished">PKG Extraction</translation>
+      <translation type="unfinished">PKG 추출하기</translation>
     </message>
     <message>
       <source>Patch detected!</source>
-      <translation type="unfinished">Patch detected!</translation>
+      <translation type="unfinished">패치가 발견되었습니다!</translation>
     </message>
     <message>
       <source>PKG and Game versions match: </source>
-      <translation type="unfinished">PKG and Game versions match: </translation>
+      <translation type="unfinished">PKG 및 게임 버전 일치: </translation>
     </message>
     <message>
       <source>Would you like to overwrite?</source>
-      <translation type="unfinished">Would you like to overwrite?</translation>
+      <translation type="unfinished">덮어쓰기를 하시겠습니까?</translation>
     </message>
     <message>
       <source>PKG Version %1 is older than installed version: </source>
-      <translation type="unfinished">PKG Version %1 is older than installed version: </translation>
+      <translation type="unfinished">PKG 버전 %1이 설치된 버전보다 이전 버전입니다.: </translation>
     </message>
     <message>
       <source>Game is installed: </source>
-      <translation type="unfinished">Game is installed: </translation>
+      <translation type="unfinished">게임이 설치됨 : </translation>
     </message>
     <message>
       <source>Would you like to install Patch: </source>
-      <translation type="unfinished">Would you like to install Patch: </translation>
+      <translation type="unfinished">패치를 설치 하시겠습니까: </translation>
     </message>
     <message>
       <source>DLC Installation</source>
@@ -1167,7 +1167,7 @@
     </message>
     <message>
       <source>Game is already running!</source>
-      <translation type="unfinished">Game is already running!</translation>
+      <translation type="unfinished">게임이 이미 실행 중입니다!</translation>
     </message>
     <message>
       <source>shadPS4</source>
@@ -1245,31 +1245,31 @@
     <name>SettingsDialog</name>
     <message>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation type="unfinished">설정</translation>
     </message>
     <message>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation type="unfinished">일반</translation>
     </message>
     <message>
       <source>System</source>
-      <translation type="unfinished">System</translation>
+      <translation type="unfinished">시스템</translation>
     </message>
     <message>
       <source>Console Language</source>
-      <translation type="unfinished">Console Language</translation>
+      <translation type="unfinished">콘솔 언어</translation>
     </message>
     <message>
       <source>Emulator Language</source>
-      <translation type="unfinished">Emulator Language</translation>
+      <translation type="unfinished">에뮬레이터 언어</translation>
     </message>
     <message>
       <source>Emulator</source>
-      <translation type="unfinished">Emulator</translation>
+      <translation type="unfinished">에뮬레이터</translation>
     </message>
     <message>
       <source>Enable Fullscreen</source>
-      <translation type="unfinished">Enable Fullscreen</translation>
+      <translation type="unfinished">전체 화면 활성화</translation>
     </message>
     <message>
       <source>Fullscreen Mode</source>
@@ -1277,7 +1277,7 @@
     </message>
     <message>
       <source>Enable Separate Update Folder</source>
-      <translation type="unfinished">Enable Separate Update Folder</translation>
+      <translation type="unfinished">별도의 업데이트 폴더 사용</translation>
     </message>
     <message>
       <source>Default tab when opening settings</source>
@@ -1289,35 +1289,35 @@
     </message>
     <message>
       <source>Show Splash</source>
-      <translation type="unfinished">Show Splash</translation>
+      <translation type="unfinished">스플래시 표시</translation>
     </message>
     <message>
       <source>Enable Discord Rich Presence</source>
-      <translation type="unfinished">Enable Discord Rich Presence</translation>
+      <translation type="unfinished">Discord 리치 프레즌스 활성화</translation>
     </message>
     <message>
       <source>Username</source>
-      <translation type="unfinished">Username</translation>
+      <translation type="unfinished">사용자명</translation>
     </message>
     <message>
       <source>Trophy Key</source>
-      <translation type="unfinished">Trophy Key</translation>
+      <translation type="unfinished">트로피 키</translation>
     </message>
     <message>
       <source>Trophy</source>
-      <translation type="unfinished">Trophy</translation>
+      <translation type="unfinished">트로피</translation>
     </message>
     <message>
       <source>Logger</source>
-      <translation type="unfinished">Logger</translation>
+      <translation type="unfinished">로그</translation>
     </message>
     <message>
       <source>Log Type</source>
-      <translation type="unfinished">Log Type</translation>
+      <translation type="unfinished">로그 유형</translation>
     </message>
     <message>
       <source>Log Filter</source>
-      <translation type="unfinished">Log Filter</translation>
+      <translation type="unfinished">로그 필터</translation>
     </message>
     <message>
       <source>Open Log Location</source>
@@ -1325,19 +1325,19 @@
     </message>
     <message>
       <source>Input</source>
-      <translation type="unfinished">Input</translation>
+      <translation type="unfinished">입력</translation>
     </message>
     <message>
       <source>Cursor</source>
-      <translation type="unfinished">Cursor</translation>
+      <translation type="unfinished">커서</translation>
     </message>
     <message>
       <source>Hide Cursor</source>
-      <translation type="unfinished">Hide Cursor</translation>
+      <translation type="unfinished">커서 숨기기</translation>
     </message>
     <message>
       <source>Hide Cursor Idle Timeout</source>
-      <translation type="unfinished">Hide Cursor Idle Timeout</translation>
+      <translation type="unfinished">커서 유휴 시간 숨기기</translation>
     </message>
     <message>
       <source>s</source>
@@ -1345,15 +1345,15 @@
     </message>
     <message>
       <source>Controller</source>
-      <translation type="unfinished">Controller</translation>
+      <translation type="unfinished">컨트롤러</translation>
     </message>
     <message>
       <source>Back Button Behavior</source>
-      <translation type="unfinished">Back Button Behavior</translation>
+      <translation type="unfinished">뒤로가기 버튼 동작</translation>
     </message>
     <message>
       <source>Graphics</source>
-      <translation type="unfinished">Graphics</translation>
+      <translation type="unfinished">그래픽</translation>
     </message>
     <message>
       <source>GUI</source>
@@ -1365,99 +1365,99 @@
     </message>
     <message>
       <source>Graphics Device</source>
-      <translation type="unfinished">Graphics Device</translation>
+      <translation type="unfinished">그래픽 장치</translation>
     </message>
     <message>
       <source>Width</source>
-      <translation type="unfinished">Width</translation>
+      <translation type="unfinished">너비</translation>
     </message>
     <message>
       <source>Height</source>
-      <translation type="unfinished">Height</translation>
+      <translation type="unfinished">높이</translation>
     </message>
     <message>
       <source>Vblank Divider</source>
-      <translation type="unfinished">Vblank Divider</translation>
+      <translation type="unfinished">Vblank 디바이더</translation>
     </message>
     <message>
       <source>Advanced</source>
-      <translation type="unfinished">Advanced</translation>
+      <translation type="unfinished">고급 기능</translation>
     </message>
     <message>
       <source>Enable Shaders Dumping</source>
-      <translation type="unfinished">Enable Shaders Dumping</translation>
+      <translation type="unfinished">셰이더 덤핑 활성화</translation>
     </message>
     <message>
       <source>Enable NULL GPU</source>
-      <translation type="unfinished">Enable NULL GPU</translation>
+      <translation type="unfinished">NULL GPU 활성화</translation>
     </message>
     <message>
       <source>Enable HDR</source>
-      <translation type="unfinished">Enable HDR</translation>
+      <translation type="unfinished">HDR 활성화</translation>
     </message>
     <message>
       <source>Paths</source>
-      <translation type="unfinished">Paths</translation>
+      <translation type="unfinished">경로</translation>
     </message>
     <message>
       <source>Game Folders</source>
-      <translation type="unfinished">Game Folders</translation>
+      <translation type="unfinished">게임 폴더</translation>
     </message>
     <message>
       <source>Add...</source>
-      <translation type="unfinished">Add...</translation>
+      <translation type="unfinished">추가...</translation>
     </message>
     <message>
       <source>Remove</source>
-      <translation type="unfinished">Remove</translation>
+      <translation type="unfinished">삭제</translation>
     </message>
     <message>
       <source>Debug</source>
-      <translation type="unfinished">Debug</translation>
+      <translation type="unfinished">디버그</translation>
     </message>
     <message>
       <source>Enable Debug Dumping</source>
-      <translation type="unfinished">Enable Debug Dumping</translation>
+      <translation type="unfinished">디버그 덤핑 활성화</translation>
     </message>
     <message>
       <source>Enable Vulkan Validation Layers</source>
-      <translation type="unfinished">Enable Vulkan Validation Layers</translation>
+      <translation type="unfinished">Vulkan 유효성 검사 레이어 활성화</translation>
     </message>
     <message>
       <source>Enable Vulkan Synchronization Validation</source>
-      <translation type="unfinished">Enable Vulkan Synchronization Validation</translation>
+      <translation type="unfinished">Vulkan 동기화 유효성 검사 활성화</translation>
     </message>
     <message>
       <source>Enable RenderDoc Debugging</source>
-      <translation type="unfinished">Enable RenderDoc Debugging</translation>
+      <translation type="unfinished">RenderDoc 디버깅 활성화</translation>
     </message>
     <message>
       <source>Enable Crash Diagnostics</source>
-      <translation type="unfinished">Enable Crash Diagnostics</translation>
+      <translation type="unfinished">크래시 진단 활성화</translation>
     </message>
     <message>
       <source>Collect Shaders</source>
-      <translation type="unfinished">Collect Shaders</translation>
+      <translation type="unfinished">셰이더 수집</translation>
     </message>
     <message>
       <source>Copy GPU Buffers</source>
-      <translation type="unfinished">Copy GPU Buffers</translation>
+      <translation type="unfinished">GPU 버퍼 복사</translation>
     </message>
     <message>
       <source>Host Debug Markers</source>
-      <translation type="unfinished">Host Debug Markers</translation>
+      <translation type="unfinished">호스트 디버그 표시</translation>
     </message>
     <message>
       <source>Guest Debug Markers</source>
-      <translation type="unfinished">Guest Debug Markers</translation>
+      <translation type="unfinished">게스트 디버그 표시</translation>
     </message>
     <message>
       <source>Update</source>
-      <translation type="unfinished">Update</translation>
+      <translation type="unfinished">업데이트</translation>
     </message>
     <message>
       <source>Check for Updates at Startup</source>
-      <translation type="unfinished">Check for Updates at Startup</translation>
+      <translation type="unfinished">시작시 업데이트 확인</translation>
     </message>
     <message>
       <source>Always Show Changelog</source>
@@ -1465,55 +1465,55 @@
     </message>
     <message>
       <source>Update Channel</source>
-      <translation type="unfinished">Update Channel</translation>
+      <translation type="unfinished">업데이트 채널</translation>
     </message>
     <message>
       <source>Check for Updates</source>
-      <translation type="unfinished">Check for Updates</translation>
+      <translation type="unfinished">업데이트 확인</translation>
     </message>
     <message>
       <source>GUI Settings</source>
-      <translation type="unfinished">GUI Settings</translation>
+      <translation type="unfinished">GUI 설정</translation>
     </message>
     <message>
       <source>Title Music</source>
-      <translation type="unfinished">Title Music</translation>
+      <translation type="unfinished">타이틀 음악</translation>
     </message>
     <message>
       <source>Disable Trophy Pop-ups</source>
-      <translation type="unfinished">Disable Trophy Pop-ups</translation>
+      <translation type="unfinished">트로피 팝업 비활성화</translation>
     </message>
     <message>
       <source>Background Image</source>
-      <translation type="unfinished">Background Image</translation>
+      <translation type="unfinished">배경 이미지</translation>
     </message>
     <message>
       <source>Show Background Image</source>
-      <translation type="unfinished">Show Background Image</translation>
+      <translation type="unfinished">배경 이미지 표시</translation>
     </message>
     <message>
       <source>Opacity</source>
-      <translation type="unfinished">Opacity</translation>
+      <translation type="unfinished">투명도</translation>
     </message>
     <message>
       <source>Play title music</source>
-      <translation type="unfinished">Play title music</translation>
+      <translation type="unfinished">타이틀 음악 재생하기</translation>
     </message>
     <message>
       <source>Update Compatibility Database On Startup</source>
-      <translation type="unfinished">Update Compatibility Database On Startup</translation>
+      <translation type="unfinished">시작할 때 호환성 데이터베이스 업데이트</translation>
     </message>
     <message>
       <source>Game Compatibility</source>
-      <translation type="unfinished">Game Compatibility</translation>
+      <translation type="unfinished">게임 호환성</translation>
     </message>
     <message>
       <source>Display Compatibility Data</source>
-      <translation type="unfinished">Display Compatibility Data</translation>
+      <translation type="unfinished">호환성 데이터 표시</translation>
     </message>
     <message>
       <source>Update Compatibility Database</source>
-      <translation type="unfinished">Update Compatibility Database</translation>
+      <translation type="unfinished">호환성 데이터베이스 업데이트</translation>
     </message>
     <message>
       <source>Volume</source>
@@ -1521,31 +1521,31 @@
     </message>
     <message>
       <source>Save</source>
-      <translation type="unfinished">Save</translation>
+      <translation type="unfinished">저장</translation>
     </message>
     <message>
       <source>Apply</source>
-      <translation type="unfinished">Apply</translation>
+      <translation type="unfinished">적용</translation>
     </message>
     <message>
       <source>Restore Defaults</source>
-      <translation type="unfinished">Restore Defaults</translation>
+      <translation type="unfinished">기본값 복원</translation>
     </message>
     <message>
       <source>Close</source>
-      <translation type="unfinished">Close</translation>
+      <translation type="unfinished">닫기</translation>
     </message>
     <message>
       <source>Point your mouse at an option to display its description.</source>
-      <translation type="unfinished">Point your mouse at an option to display its description.</translation>
+      <translation type="unfinished">옵션에 마우스를 가져가면 해당 옵션에 대한 설명이 표시됩니다.</translation>
     </message>
     <message>
       <source>Console Language:\nSets the language that the PS4 game uses.\nIt&apos;s recommended to set this to a language the game supports, which will vary by region.</source>
-      <translation type="unfinished">Console Language:\nSets the language that the PS4 game uses.\nIt&apos;s recommended to set this to a language the game supports, which will vary by region.</translation>
+      <translation type="unfinished">콘솔 언어:\nPS4 게임에서 사용하는 언어를 설정합니다.\nIt&apos;s 지역에 따라 다를 수 있는 게임에서 지원하는 언어로 설정하는 것이 좋습니다.</translation>
     </message>
     <message>
       <source>Emulator Language:\nSets the language of the emulator&apos;s user interface.</source>
-      <translation type="unfinished">Emulator Language:\nSets the language of the emulator&apos;s user interface.</translation>
+      <translation type="unfinished">에뮬레이터 언어:\n에뮬레이터의 사용자 인터페이스 언어를 설정합니다.</translation>
     </message>
     <message>
       <source>Enable Full Screen:\nAutomatically puts the game window into full-screen mode.\nThis can be toggled by pressing the F11 key.</source>
